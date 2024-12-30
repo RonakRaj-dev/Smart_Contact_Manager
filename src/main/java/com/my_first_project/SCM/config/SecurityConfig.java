@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.my_first_project.SCM.implementation.SecurityCustomUserDetailService;
+import com.my_first_project.SCM.services.implementation.SecurityCustomUserDetailService;
 
 @Configuration
 public class SecurityConfig {
@@ -71,7 +71,7 @@ public class SecurityConfig {
         httpSecurity.formLogin(formLogin -> {
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
-            formLogin.successForwardUrl("/user/dashboard");
+            formLogin.successForwardUrl("/user/profile");
             // formLogin.failureForwardUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
@@ -100,16 +100,16 @@ public class SecurityConfig {
 
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.logout(logoutForm -> {
-            logoutForm.logoutUrl("/do-logout");
-            logoutForm.logoutSuccessUrl("/login?logout=true");
-        });
-
 
         //oauth2 configuration
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(oAuthAuthenticationSuccessHandler);
+        });
+
+        httpSecurity.logout(logoutForm -> {
+            logoutForm.logoutUrl("/do-logout");
+            logoutForm.logoutSuccessUrl("/login?logout=true");
         });
 
 

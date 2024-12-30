@@ -23,13 +23,14 @@ public class UserForm {
     private String name;
 
     @Email(message = "Invalid Email Address")
+    @NotBlank(message = "Email is required")
     private String email;
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Min 6 Characters required")
     private String password;
 
-    @Size(min = 5, message = "Minimum 5 words")
+    @NotBlank(message = "About is required")
     private String about;
 
     @Size(min = 10, max = 10, message = "Limit Exceed")

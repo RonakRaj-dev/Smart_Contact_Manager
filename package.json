@@ -11,7 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "smart_contact_manager": "file:"
+    "smart_contact_manager": "file:",
+    "sweetalert2": "^11.15.3"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.10"

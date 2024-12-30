@@ -73,13 +73,13 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
                     : oauth2User.getAttribute("login").toString() + "@gmail.com";
             String picture = oauth2User.getAttribute("avatar_url").toString();
             String name = oauth2User.getAttribute("login").toString();
-            String providerId = oauth2User.getName();
+            String providerUserId = oauth2User.getName();
             
 
             user.setEmail(email);
             user.setProfilePic(picture);
             user.setName(name);
-            user.setProviderID(providerId);
+            user.setProviderID(providerUserId);
             user.setProvider(Providers.GITHUB);
             user.setAbout("This account is created by using Github Sign in");
 
@@ -129,10 +129,10 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
         User user2 = userRepo.findByEmail(user.getEmail()).orElse(null);
         if (user2 == null) {
             userRepo.save(user);
+            System.out.println("User saved : " + user.getEmail());
         }
 
         new DefaultRedirectStrategy().sendRedirect(request, response, "/user/profile");
     }
 
-    //
 }

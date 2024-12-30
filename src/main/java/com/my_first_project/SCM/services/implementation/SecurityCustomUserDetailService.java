@@ -1,4 +1,4 @@
-package com.my_first_project.SCM.implementation;
+package com.my_first_project.SCM.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class SecurityCustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-        return userRepositories.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid Username or Password"));
+        return userRepositories.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found with email" + username));
 
     }
     

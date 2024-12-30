@@ -1,4 +1,4 @@
-package com.my_first_project.SCM.implementation;
+package com.my_first_project.SCM.services.implementation;
 
 import java.util.List;
 import java.util.Optional;
@@ -72,7 +72,8 @@ public class UserServiceImplementaion implements UserService {
 
     @Override
     public void deleteUser(String id) {
-        userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
+        User user2 = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
+        userRepo.delete(user2);
     }
 
     @Override
@@ -90,6 +91,11 @@ public class UserServiceImplementaion implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElse(null);
     }
 
 }

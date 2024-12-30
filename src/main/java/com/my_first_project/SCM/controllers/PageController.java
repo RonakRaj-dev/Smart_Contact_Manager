@@ -42,13 +42,14 @@ public class PageController {
 	// About
 	@RequestMapping("/about")
 	public String aboutPage(Model model) {
+		model.addAttribute("isLogin", true);
 		System.out.println("About Page Handler");
 		return "about";
 	}
 
 	// Services
 	@RequestMapping("/service")
-	public String servicePage(Model model) {
+	public String servicePage() {
 		System.out.println("Service Page Handler");
 		return "service";
 	}
@@ -89,7 +90,7 @@ public class PageController {
 		System.out.println("Processing registration");
 		// fetch form data
 
-		System.out.println("UserForm");
+		System.out.println(userForm);
 		// validate form data
 
 		if (rBindingResult.hasErrors()) {
@@ -114,15 +115,16 @@ public class PageController {
 		user.setPassword(userForm.getPassword());
 		user.setAbout(userForm.getAbout());
 		user.setPhoneNumber(userForm.getPhoneNumber());
+		user.setEnabled(false);
 		user.setProfilePic(
 				"https://imgs.search.brave.com/zMgzISpQsidLMr4H0bJVZDgza-W9SZbpUMVLLf2dJ6Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG5i/bG9nLnBpY3NhcnQu/Y29tLzIwMjEvMDMv/Y29tcG9zaXRpb24t/NzgweDUyMC5wbmc");
 
-		userService.saveUser(user);
+		User savedUser = userService.saveUser(user);
 		System.out.println("user saved -> ");
 
 		// message = "Registration Successful"
 
-		Message message = Message.builder().content("Registration Successful").type(MessageType.blue).build();
+		Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
 
 		session.setAttribute("message", message);
 
